@@ -24,16 +24,11 @@ async function createCategoryPost(req, res) {
 }
 
 // D of CRUD (DELETE)
-
+// Should call db query from queries.js instead of directly calling a query here
 async function deleteCategory(req, res) {
-  try {
-    // Edit to only delete selected category
-    await pool.query(`DELETE FROM categories`);
-    res.send("All categories deleted");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Database error");
-  }
+  const id = req.params.id;
+  await db.deleteCategory(id);
+  res.redirect("/");
 }
 
 // U of CRUD (UPDATE)
