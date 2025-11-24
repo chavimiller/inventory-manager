@@ -10,10 +10,12 @@ categoryRouter.get("/newCategory", categoryController.createCategoryGet);
 categoryRouter.post("/newCategory", categoryController.createCategoryPost);
 
 // Get by ID
-categoryRouter.get("/:id", categoryController.get);
+categoryRouter.get("/:id", categoryController.getCategoryById);
 
 // Need to make udpateCategoryGet and updateCategoryPost
-categoryRouter.get("/:id/edit", categoryController.updateCategory);
+categoryRouter.get("/:id/edit", categoryController.updateCategoryGet);
+
+categoryRouter.post("/:id/edit", categoryController.updateCategoryPost);
 
 // Need to make deleteCategoryGet and deleteCategoryPost
-categoryRouter.get("/:id/delete", categoryController.deleteCategory);
+categoryRouter.post("/:id/delete", categoryController.deleteCategoryPost);

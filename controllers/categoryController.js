@@ -14,12 +14,9 @@ async function getCategoryById(req, res) {
 
 // R of CRUD (READ)
 async function listCategories(req, res) {
-  // Create db query to getAllCategories
   const categories = await db.getAllCategories();
   console.log("Categories: " + categories);
-  res.send(
-    "Categories: " + categories.map((category) => category.name).join(", ")
-  );
+
   res.render("categoryList", { categories });
 }
 
@@ -30,13 +27,13 @@ async function createCategoryGet(req, res) {
 
 async function createCategoryPost(req, res) {
   const { category } = req.body;
-  await db.insertCategory(category); // Create this db query to add a category
-  res.redirect("/categories");
+  await db.insertCategory(category);
+  res.redirect("/");
 }
 
 // D of CRUD (DELETE)
-// Should call db query from queries.js instead of directly calling a query here
-async function deleteCategory(req, res) {
+
+async function deleteCategoryPost(req, res) {
   const id = req.params.id;
   await db.deleteCategory(id);
   res.redirect("/");
@@ -44,18 +41,26 @@ async function deleteCategory(req, res) {
 
 // U of CRUD (UPDATE)
 
-async function udpateCategoryGet(req, res) {
+async function updateCategoryGet(req, res) {
   const id = req.params.id;
   const category = await db.getCategoryById(id);
 
   res.render("updateCategory", { category });
 }
 
+async function updateCategoryPost(req, res) {
+  const id = req.params.id;
+  const { category } = req.body;
+
+  await db.updateCategory(id, category);
+  res.redirect(`/${id}`);
+}
+
 module.exports = {
   listCategories,
   createCategoryGet,
   createCategoryPost,
-  deleteCategory,
+  deleteCategoryPost,
   updateCategoryGet,
   updateCategoryPost,
 };
