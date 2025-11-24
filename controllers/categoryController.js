@@ -20,6 +20,7 @@ async function listCategories(req, res) {
   res.send(
     "Categories: " + categories.map((category) => category.name).join(", ")
   );
+  res.render("categoryList", { categories });
 }
 
 // C of CRUD (CREATE)
