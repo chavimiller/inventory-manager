@@ -40,6 +40,14 @@ async function getProductById(id) {
   return rows[0];
 }
 
+async function getProductsByCategoryId(category_id) {
+  const { rows } = await pool.query(
+    "SELECT * FROM products WHERE category_id = $1 ORDER BY product_name",
+    [category_id]
+  );
+  return rows;
+}
+
 async function insertProduct(productName, categoryId) {
   await pool.query(
     "INSERT INTO products (product_name, category_id) VALUES ($1, $2)",
@@ -47,11 +55,11 @@ async function insertProduct(productName, categoryId) {
   );
 }
 
-async function updateProduct(id, newName, newCategoryId) {
-  await pool.query(
-    "UPDATE products SET product_name = $1, category_id = $2 WHERE id = $3",
-    [newName, newCategoryId, id]
-  );
+async function updateProduct(id, newName) {
+  await pool.query("UPDATE products SET product_name = $1 WHERE id = $2", [
+    newName,
+    id,
+  ]);
 }
 
 async function deleteProduct(id) {
@@ -64,4 +72,10 @@ module.exports = {
   insertCategory,
   updateCategory,
   deleteCategory,
+  getAllProducts,
+  getProductById,
+  insertProduct,
+  updateProduct,
+  deleteProduct,
+  getProductsByCategoryId,
 };

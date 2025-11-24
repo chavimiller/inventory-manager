@@ -16,6 +16,12 @@ async function createCategoryGet(req, res) {
   res.render("newCategory");
 }
 
+async function createCategoryPost(req, res) {
+  const { category } = req.body;
+  await db.insertCategory(category);
+  res.redirect("/");
+}
+
 // R of CRUD (READ)
 async function listCategories(req, res) {
   const categories = await db.getAllCategories();
@@ -24,18 +30,12 @@ async function listCategories(req, res) {
   res.render("categoryList", { categories });
 }
 
-async function createCategoryPost(req, res) {
-  const { category } = req.body;
-  await db.insertCategory(category);
-  res.redirect("/");
-}
-
 // U of CRUD (UPDATE)
 async function updateCategoryGet(req, res) {
   const id = req.params.id;
   const category = await db.getCategoryById(id);
 
-  res.render("updateCategory", { category });
+  res.render("newCategory", { category });
 }
 
 async function updateCategoryPost(req, res) {
