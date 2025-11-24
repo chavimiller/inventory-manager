@@ -30,9 +30,8 @@ async function createCategoryGet(req, res) {
 
 async function createCategoryPost(req, res) {
   const { category } = req.body;
-  // Create db query to add a category
-  await db.insertCategory(category);
-  res.redirect("/");
+  await db.insertCategory(category); // Create this db query to add a category
+  res.redirect("/categories");
 }
 
 // D of CRUD (DELETE)
@@ -45,12 +44,18 @@ async function deleteCategory(req, res) {
 
 // U of CRUD (UPDATE)
 
-async function updateCategory() {}
+async function udpateCategoryGet(req, res) {
+  const id = req.params.id;
+  const category = await db.getCategoryById(id);
+
+  res.render("updateCategory", { category });
+}
 
 module.exports = {
   listCategories,
   createCategoryGet,
   createCategoryPost,
   deleteCategory,
-  updateCategory,
+  updateCategoryGet,
+  updateCategoryPost,
 };
