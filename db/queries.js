@@ -30,5 +30,8 @@ async function deleteCategory(id) {
 
 module.exports = {
   getAllCategories,
+  getCategoryById
   insertCategory,
+  updateCategory,
+  deleteCategory
 };

@@ -1,6 +1,17 @@
 const db = require("../db/queries");
 const pool = require("../db/pool");
 
+async function getCategoryById(req, res) {
+  const id = req.params.id;
+  const category = await db.getCategoryById(id);
+
+  if (!category) {
+    return res.status(404).send("Category not found.");
+  }
+
+  res.render("categoryDetail", { category });
+}
+
 // R of CRUD (READ)
 async function listCategories(req, res) {
   // Create db query to getAllCategories
