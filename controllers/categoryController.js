@@ -1,5 +1,4 @@
 const db = require("../db/queries");
-const pool = require("../db/pool");
 
 async function getCategoryById(req, res) {
   const id = req.params.id;
@@ -12,6 +11,11 @@ async function getCategoryById(req, res) {
   res.render("categoryDetail", { category });
 }
 
+// C of CRUD (CREATE)
+async function createCategoryGet(req, res) {
+  res.render("newCategory");
+}
+
 // R of CRUD (READ)
 async function listCategories(req, res) {
   const categories = await db.getAllCategories();
@@ -20,27 +24,13 @@ async function listCategories(req, res) {
   res.render("categoryList", { categories });
 }
 
-// C of CRUD (CREATE)
-async function createCategoryGet(req, res) {
-  res.render("newCategory");
-}
-
 async function createCategoryPost(req, res) {
   const { category } = req.body;
   await db.insertCategory(category);
   res.redirect("/");
 }
 
-// D of CRUD (DELETE)
-
-async function deleteCategoryPost(req, res) {
-  const id = req.params.id;
-  await db.deleteCategory(id);
-  res.redirect("/");
-}
-
 // U of CRUD (UPDATE)
-
 async function updateCategoryGet(req, res) {
   const id = req.params.id;
   const category = await db.getCategoryById(id);
@@ -56,7 +46,15 @@ async function updateCategoryPost(req, res) {
   res.redirect(`/${id}`);
 }
 
+// D of CRUD (DELETE)
+async function deleteCategoryPost(req, res) {
+  const id = req.params.id;
+  await db.deleteCategory(id);
+  res.redirect("/");
+}
+
 module.exports = {
+  getCategoryById,
   listCategories,
   createCategoryGet,
   createCategoryPost,
