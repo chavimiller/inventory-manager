@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= product ? "Edit Product" : "New Product" %></title>
+  </head>
+  <body>
+    <h1><%= product ? "Edit Product" : "New Product" %></h1>
+
+    <form
+      action="<%= product 
+                 ? `/categories/${category.id}/products/${product.id}/edit` 
+                 : `/categories/${category.id}/products/new` 
+             %>"
+      method="POST"
+    >
+      <label>Product Name:</label>
+      <input
+        type="text"
+        name="product_name"
+        value="<%= product ? product.product_name : '' %>"
+        required
+      />
+
+      <button type="submit">Save</button>
+    </form>
+  </body>
+</html>

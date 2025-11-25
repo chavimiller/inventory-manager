@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= category.category_name %></title>
+  </head>
+  <body>
+    <h1><%= category.category_name %></h1>
+
+    <a href="/categories/<%= category.id %>/edit">Edit Category</a>
+    <form
+      action="/categories/<%= category.id %>/delete"
+      method="POST"
+      style="display: inline"
+    >
+      <button type="submit">Delete Category</button>
+    </form>
+
+    <h2>Products</h2>
+
+    <a href="/categories/<%= category.id %>/products/new">Add New Product</a>
+
+    <ul>
+      <% products.forEach(product => { %>
+      <li>
+        <%= product.product_name %>
+
+        <a
+          href="/categories/<%= category.id %>/products/<%= product.id %>/edit"
+        >
+          Edit
+        </a>
+
+        <form
+          action="/categories/<%= category.id %>/products/<%= product.id %>/delete"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>

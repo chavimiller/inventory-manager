@@ -12,8 +12,9 @@ async function getProductById(req, res) {
 
 // C
 async function createProductGet(req, res) {
-  const categories = await db.getAllCategories();
-  res.render("newProduct", { categories });
+  const { categoryId } = req.params;
+  const category = await db.getCategoryById(categoryId);
+  res.render("newProduct", { product: null, category });
 }
 
 async function createProductPost(req, res) {
